@@ -1,0 +1,11 @@
+# Asgard Custom Aliases
+alias ls="eza --icons"
+alias ll="eza -la --icons"
+alias lt="eza --tree --icons"
+alias cat="bat"
+
+# Initialize Starship Prompt
+eval "$(starship init zsh)"
+
+# Initialize Direnv
+eval "$(direnv hook zsh)"

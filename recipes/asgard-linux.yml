@@ -1,0 +1,74 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+name: asgard-linux
+description: Custom bootc image with Nvidia open-source drivers and gaming packages.
+
+base-image: ghcr.io/ublue-os/aurora-dx-nvidia-open
+image-version: stable
+
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  - type: dnf
+    repos:
+      copr:
+        - atim/starship
+        - atim/heroic-games-launcher
+        - apicalshark/ProtonUp-Qt
+        - lukenukem/asus-linux
+        - jhyub/supergfxctl-plasmoid
+    install:
+      packages:
+        - google-chrome-stable
+        - keepassxc
+        - starship
+        - direnv
+        - eza
+        - bat
+        - fd-find
+        - ripgrep
+        - jq
+        - unzip
+        - p7zip
+        - unrar
+        - nvme-cli
+        - smartmontools
+        - pciutils
+        - usbutils
+        - lm_sensors
+        - thermald
+        - steam
+        - gamescope
+        - gamemode
+        - lutris
+        - heroic-games-launcher-bin
+        - protonup-qt
+        - supergfxctl
+        - supergfxctl-plasmoid
+
+  - type: default-flatpaks
+    configurations:
+      - notify: true
+        scope: system
+        install:
+          - io.github.kolunmi.Bazaar
+          - com.obsproject.Studio
+          - com.discordapp.Discord
+          - com.plexamp.Plexamp
+          - io.github.jeffshee.Feishin
+          - com.obsidian.Obsidian
+          - org.gnome.Apostrophe
+          - org.nicotine_plus.Nicotine
+          - org.kde.haruna
+          - org.kde.kamoso
+      - scope: user
+
+  - type: script
+    scripts:
+      - build-common.sh
+      - build-nvidia.sh
+
+  - type: signing
